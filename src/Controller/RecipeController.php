@@ -84,6 +84,7 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush(); //save
+            $recipe->setUpdatedAt(new \DateTimeImmutable()); //update datetime
             $this->addFlash('ok', 'modifications apportees avec success');
             return $this->redirectToRoute('recipe.index'); //redirect 
         }
@@ -99,7 +100,11 @@ class RecipeController extends AbstractController
 
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+
+            $recipe->setCreatedAt(new \DateTimeImmutable());
+            $recipe->setUpdatedAt(new \DateTimeImmutable());
             $em->persist($recipe);
             $em->flush();
             $this->addFlash('success','Recette cree');
