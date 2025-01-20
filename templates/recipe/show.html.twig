@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %} Recette : {{recipe.getTitle()}} {% endblock %}
+{% block body %}
+    {# {{ slug }} {{person.lastname ~ person.firstname}} #}
+    {# {{slug | upper}} #}
+<h1>{{recipe.getTitle()}}</h1>
+<p>
+    {{recipe.getContent() | nl2br}}
+</p>
+{% endblock %}

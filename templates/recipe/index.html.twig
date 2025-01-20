@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block title %} toutes les recettes {% endblock %}
+{% block body %}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis nunc non dolor consequat, non pulvinar nibh fringilla. Quisque iaculis ante sit amet tortor laoreet, eu mollis nulla tempus
+
+
+<p>
+    <a href="{{ path('recipe.create') }}">Creer une recette</a>
+</p>
+
+<table class="table">
+<thead>
+<tr>
+    <th>titre</th>
+    <th>Actions</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+    {% for recipe in recipes %}
+    <td>
+        <a href="{{ path('recipe.show', {id: recipe.getId(), slug: recipe.getSlug()}) }}">{{recipe.getTitle()}}</a>
+    </td>
+    <td>
+        <a href="{{ path('recipe.edit', {id: recipe.getId()}) }}">editer</a>
+    </td>
+</tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+
+</ul>
+{% endblock %}
