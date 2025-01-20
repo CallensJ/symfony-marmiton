@@ -24,6 +24,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis nunc non do
     </td>
     <td>
         <a href="{{ path('recipe.edit', {id: recipe.getId()}) }}">editer</a>
+        <form action="{{ path('recipe.delete', {id: recipe.id}) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE"/>
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+        
+        </form>
     </td>
 </tr>
 

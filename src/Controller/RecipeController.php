@@ -72,7 +72,7 @@ class RecipeController extends AbstractController
     }
 
 
-    #[Route('/recettes/{id}/edit', name: 'recipe.edit')]
+    #[Route('/recettes/{id}/edit', name: 'recipe.edit', methods:['GET', 'POST'])]
     // public function edit(int $id)
     // {
 
@@ -101,13 +101,13 @@ class RecipeController extends AbstractController
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $recipe->setCreatedAt(new \DateTimeImmutable());
             $recipe->setUpdatedAt(new \DateTimeImmutable());
             $em->persist($recipe);
             $em->flush();
-            $this->addFlash('success','Recette cree');
+            $this->addFlash('success', 'Recette cree');
             return $this->redirectToRoute('recipe.index');
         }
         return $this->render('recipe/create.html.twig', [
@@ -115,5 +115,11 @@ class RecipeController extends AbstractController
         ]);
     }
 
-
+    #[Route('/recettes/{id}', name: 'recipe.delete', methods:['DELETE'])]
+    public function delete(Recipe $recipe, EntityManagerInterface $em){
+        $em->remove($recipe);
+        $em->flush();
+        $this->addFlash('success', 'Recette supprimee');
+        return $this->redirectToRoute('recipe.index');
+    }
 }
