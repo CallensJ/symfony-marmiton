@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Recipe;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Event\PreSubmitEvent;
@@ -11,6 +12,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Sequentially;
 
 class RecipeType extends AbstractType
 {
@@ -18,7 +22,17 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('slug')
+            ->add('slug', TextType::class, [
+                'required' => false,
+                // https://symfony.com/doc/current/reference/constraints.html
+                // 'constraints' => new Sequentially([
+
+                //     new Length(min: 10),
+                //     new Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$', message: "slug non valide")
+
+
+                // ])
+            ])
             ->add('content')
             // ->add('createdAt', null, [
             //     'widget' => 'single_text',
@@ -47,14 +61,15 @@ class RecipeType extends AbstractType
         // dd($event->getData());
     }
 
-    public function timeStamp(PostSubmitEvent $event){
+    public function timeStamp(PostSubmitEvent $event)
+    {
         $data = $event->getData();
         // dd($data);
-        if(empty($data instanceof Recipe)){
+        if (empty($data instanceof Recipe)) {
             return;
         }
         $data->setUpdatedAt(new \DateTimeImmutable());
-        if(empty($data->getId())){
+        if (empty($data->getId())) {
             $data->setCreatedAt(new \DateTimeImmutable());
         }
     }
