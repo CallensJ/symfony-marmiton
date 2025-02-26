@@ -26,7 +26,7 @@ class Recipe
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
-    #[Assert\REgex('/^[a-z0-9]+(?:-[a-z0-9]+)*$', message: 'invalid')]
+    #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$', message: 'invalid')]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -50,7 +50,7 @@ class Recipe
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -62,7 +62,7 @@ class Recipe
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }

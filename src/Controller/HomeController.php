@@ -14,4 +14,6 @@ class HomeController extends AbstractController{
         // return new Response("Bonjour" . $request->query->get('name', "Inconnu"));
       return $this->render('home/index.html.twig');
     }
+
+
 }

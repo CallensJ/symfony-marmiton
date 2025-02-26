@@ -17,11 +17,13 @@ class BanWord extends Constraint
      */
 
      public function __construct(
-        public string $message = 'The value "{{ value }}" is not valid.',
-        public array $badWords = ['spam', 'sexe']
+        public string $message = 'The value "{{ banWord }}" is not valid.',
+        public array $badWords = ['spam', 'sexe'],
+        ?array $groups = null,
+        mixed $payload = null
      )
      {
-        
+        parent::__construct(null,$groups, $payload);
      }
      
 }

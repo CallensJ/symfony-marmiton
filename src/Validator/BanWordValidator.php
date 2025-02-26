@@ -21,7 +21,7 @@ class BanWordValidator extends ConstraintValidator
             if (str_contains($value, $banWord)){
                 
                 $this->context->buildViolation($constraint->message)
-                    ->setParameter('{{ value }}', $value)
+                    ->setParameter('{{ value }}', $banWord)
                     ->addViolation();
             }
         }
