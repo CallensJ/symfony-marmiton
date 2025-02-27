@@ -24,6 +24,7 @@ class RecipeFormTest extends TypeTestCase
         $this->assertEquals('Tarte aux fraises', $model->getTitle());
         $this->assertEquals('Une délicieuse tarte aux fraises maison', $model->getContent());
     }
+    
 }
 
 
